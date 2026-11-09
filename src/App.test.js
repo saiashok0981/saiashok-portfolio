@@ -1,8 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
-
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+test('renders the portfolio and its main actions', () => { render(<App />); expect(screen.getByRole('heading', { name: /building systems/i })).toBeInTheDocument(); expect(screen.getByRole('link', { name: /download cv/i })).toHaveAttribute('href', expect.stringContaining('Saiashok-Karadi-CV.pdf')); expect(screen.getByRole('link', { name: /start a conversation/i })).toHaveAttribute('href', 'mailto:saiashok103@gmail.com'); });
+test('filters the project list', () => { render(<App />); fireEvent.click(screen.getByRole('button', { name: /data 01/i })); expect(screen.getByRole('heading', { name: /databricks data pipeline/i })).toBeInTheDocument(); expect(screen.queryByRole('heading', { name: /tile terminal workspace/i })).not.toBeInTheDocument(); });
